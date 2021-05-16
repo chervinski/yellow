@@ -1,0 +1,40 @@
+﻿@model CategoryViewModel
+@{
+	ViewData["Title"] = "Yellow";
+}
+
+@switch (Model.CategoryName)
+{
+	case "phone":<h2>Мобильные телефоны @Model.ManufacturerName</h2>break;
+	default: break;
+}
+<div class="d-flex mt-4">
+	<div class="w-25 mr-5" id="manufacturer-filter">
+		<span class="font-weight-bold">Производители</span>
+		<hr />
+		<a asp-area="" asp-controller="Home" asp-action="Index" asp-route-categoryName="@Model.CategoryName" asp-route-manufacturerId="0" class="d-block mb-1">
+			Все
+		</a>
+		@foreach (Manufacturer manufacturer in Model.Manufacturers)
+		{
+			<a asp-area="" asp-controller="Home" asp-action="Index" asp-route-categoryName="@Model.CategoryName" asp-route-manufacturerId="@manufacturer.Id" class="d-block mb-1">
+				@manufacturer.Name
+			</a>
+		}
+	</div>
+	<div class="grid flex-grow-1">
+		@foreach (Product product in Model.Products)
+		{
+			<div class="item">
+				<img src="@product.ImageURL" />
+				<div class="item-info">
+					<div class="item-name-container">
+						<a href="" class="item-name">@product.Name</a>
+					</div>
+					<span class="item-price">@product.Price грн.</span>
+					<a class="item-buy">Купить</a>
+				</div>
+			</div>
+		}
+	</div>
+</div>
